@@ -185,6 +185,17 @@
         "className": ""
     },
     {
+        "id": "ad85951c706be122",
+        "type": "ui_group",
+        "name": "Indicator",
+        "tab": "503cef66385b9f72",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "b85a44ce770f3066",
         "type": "mqtt in",
         "z": "ec43829a7d576813",
@@ -591,7 +602,8 @@
         "name": "link out 1",
         "mode": "link",
         "links": [
-            "1ea1bada614ac13b"
+            "1ea1bada614ac13b",
+            "96d276642081200a"
         ],
         "x": 285,
         "y": 580,
@@ -614,6 +626,190 @@
         "className": "",
         "x": 620,
         "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac01d1d135e6bac1",
+        "type": "ui_text",
+        "z": "ec43829a7d576813",
+        "group": "ad85951c706be122",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Soil",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 650,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "eefee1a6ad924d29",
+        "type": "function",
+        "z": "ec43829a7d576813",
+        "name": "soil condition check",
+        "func": "var soil = parseFloat(msg.payload[\"soil\"]);\nmsg.payload = (soil >= 0 && soil < 300) ? \"dry\" : (soil >= 300 && soil < 700) ? \"humid\" : \"in water\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1020,
+        "wires": [
+            [
+                "ac01d1d135e6bac1"
+            ]
+        ]
+    },
+    {
+        "id": "96d276642081200a",
+        "type": "link in",
+        "z": "ec43829a7d576813",
+        "name": "link in 1",
+        "links": [
+            "f9879f6ad9e92192"
+        ],
+        "x": 225,
+        "y": 1040,
+        "wires": [
+            [
+                "eefee1a6ad924d29",
+                "4468f8dd1e5ff0a6",
+                "f92ac46a5952bd8d",
+                "a830faa64d75aca6"
+            ]
+        ]
+    },
+    {
+        "id": "887d1ca48eb9de23",
+        "type": "ui_text",
+        "z": "ec43829a7d576813",
+        "group": "ad85951c706be122",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "UV",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 650,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "4468f8dd1e5ff0a6",
+        "type": "function",
+        "z": "ec43829a7d576813",
+        "name": "uv condition check",
+        "func": "var uv = parseFloat(msg.payload[\"uv\"]);\nmsg.payload = (uv > 20) ? \"normal light\" : \"no light\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 1080,
+        "wires": [
+            [
+                "887d1ca48eb9de23"
+            ]
+        ]
+    },
+    {
+        "id": "bba8eeeb80dcc7e2",
+        "type": "ui_text",
+        "z": "ec43829a7d576813",
+        "group": "ad85951c706be122",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Humidity",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 660,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "f92ac46a5952bd8d",
+        "type": "function",
+        "z": "ec43829a7d576813",
+        "name": "humidity condition check",
+        "func": "var humid = parseFloat(msg.payload[\"humid\"]);\nmsg.payload = (humid > 50) ? \"normal humid\" : \"no humid\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 1140,
+        "wires": [
+            [
+                "bba8eeeb80dcc7e2"
+            ]
+        ]
+    },
+    {
+        "id": "ef493797c3684ec4",
+        "type": "ui_text",
+        "z": "ec43829a7d576813",
+        "group": "ad85951c706be122",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Temperature",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 670,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "a830faa64d75aca6",
+        "type": "function",
+        "z": "ec43829a7d576813",
+        "name": "temp condition check",
+        "func": "var temp = parseFloat(msg.payload[\"temp\"]);\nmsg.payload = (temp > 30) ? \"normal temp\" : \"abnormal temp\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 1200,
+        "wires": [
+            [
+                "ef493797c3684ec4"
+            ]
+        ]
+    },
+    {
+        "id": "038dbaeed5a53adf",
+        "type": "ui_template",
+        "z": "ec43829a7d576813",
+        "group": "ad85951c706be122",
+        "name": "",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "format": "<style>\n    @media screen and (min-width: 1280px) {\n        #Home_Indicator.visible {\n            left: 232.6px !important;\n            top: 300px !important;\n        }\n    }\n</style>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 640,
+        "y": 1300,
         "wires": [
             []
         ]
