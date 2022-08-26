@@ -341,7 +341,7 @@
         "nodata": "",
         "dot": false,
         "ymin": "0",
-        "ymax": "300",
+        "ymax": "700",
         "removeOlder": 1,
         "removeOlderPoints": "",
         "removeOlderUnit": "3600",
